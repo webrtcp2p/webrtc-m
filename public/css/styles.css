@@ -6,10 +6,11 @@ body{
 .input-styled{
   display: inline-block;
   border-radius: 0;
-  background: rgb(19, 18, 27);
+  background: rgb(239, 239, 239);
   border: none;
   padding: 0 20px;
   height: 50px;
+  
 }
 
 /*Header*/
@@ -88,16 +89,15 @@ ul {
   min-height:340px;
   margin: 60px auto;
   padding:0 20px 80px;
-  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.99);
   color:black;
 }
 .signin-to-app h2{
   line-height: 80px;
   margin: 0 -20px 40px;
-  background: rgb(255, 255, 255);
-  color:#000000;
+  background: rgb(83, 71, 138);
+  color: #ffffff;
   font-weight:bold;
-
 }
 .signin-to-app p{
   font-size: 20px;
