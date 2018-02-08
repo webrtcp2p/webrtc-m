@@ -184,7 +184,7 @@ ul {
   margin-top: 20px;
 }
 .video-page-holder .video-wrap{
-  width: 1080px;
+  width: 1098px;
   height: 476px;
   position: relative;
 }
@@ -231,7 +231,7 @@ ul {
 }
 .send-file input[type="text"],
 .send-message input[type="text"]{
-  width: 850px;
+  width: 870px;
   margin-right: 5px;
 }
 .send-file button{
