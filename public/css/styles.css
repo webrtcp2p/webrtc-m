@@ -1,6 +1,7 @@
 html,
 body{
   font-family: 'Raleway', sans-serif;
+  overflow:hidden;
 }
 .input-styled{
   display: inline-block;
@@ -50,7 +51,7 @@ ul {
 /*Maste Head And Landing Text*/
 .mastHead{
   min-height: 2500px;
-  padding: 60px 0 40px;
+  padding: 39px 0 40px;
   background: url('../images/skyline.jpg');
  
   background-position: center top;  
