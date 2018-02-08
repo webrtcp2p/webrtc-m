@@ -211,6 +211,31 @@ document.getElementById("myMessage")
     }
 });
 
+document.getElementById("studentName")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("requestExpert").click();
+    }
+});
+
+document.getElementById("expertName")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("expertSignupButton").click();
+    }
+});
+
+document.getElementById("expertSpecialty")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("expertSignupButton").click();
+    }
+});
+
+
 sendMessage.addEventListener('click', function(ev){
 	dataChannel.send(myMessage.value);
 	appendChatMessage(myMessage.value, 'message-in');
