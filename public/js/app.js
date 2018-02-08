@@ -76,7 +76,7 @@ expertSignupButton.addEventListener('click', function(ev){
 	expertUserName = expertName.value || 'no name';
 	myName = expertUserName;
 	io.emit('signal', {"user_type": "expert", "user_name": expertUserName, "user_data": expertSpecialty.value, "command": "joinroom"});
-	console.log("Dr. " + expertUserName + " has joined.");
+	console.log("Mr. " + expertUserName + " has joined.");
 	
 	ev.preventDefault();
 }, false);
