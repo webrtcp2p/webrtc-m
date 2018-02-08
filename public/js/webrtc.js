@@ -203,6 +203,13 @@ function receiveDataChannelMessage(event) {
 	}
 }
 
+document.getElementById("myMessage")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("sendMessage").click();
+    }
+});
 
 sendMessage.addEventListener('click', function(ev){
 	dataChannel.send(myMessage.value);
