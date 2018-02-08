@@ -231,8 +231,10 @@ ul {
 }
 .send-file input[type="text"],
 .send-message input[type="text"]{
-  width: 870px;
+  width: 930px;
   margin-right: 5px;
+  color:black;
+  height:40px;
 }
 .send-file button{
   width: 200px;
@@ -242,8 +244,9 @@ ul {
   background: #739a23;
 }
 .send-message button{
-  width: 200px;
+  width: 140px;
   background: #3b5386;
+  height:40px;
 }
 .send-message button:hover{
   background: #7c86d6;
