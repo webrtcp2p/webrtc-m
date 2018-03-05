@@ -217,6 +217,13 @@ ul {
 .video-page-holder .actions-holder{
   padding: 10px;
 }
+.space-styled{
+  margin: 0 auto;
+  display: inline;
+}
+.progress-styled{
+  display: inline;
+}
 .video-page-holder .actions-holder a{
   line-height: 50px;
   color: #fff;
