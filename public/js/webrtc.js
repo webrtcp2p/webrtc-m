@@ -203,38 +203,6 @@ function receiveDataChannelMessage(event) {
 	}
 }
 
-document.getElementById("myMessage")
-    .addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        document.getElementById("sendMessage").click();
-    }
-});
-
-document.getElementById("studentName")
-    .addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        document.getElementById("requestExpert").click();
-    }
-});
-
-document.getElementById("expertName")
-    .addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        document.getElementById("expertSignupButton").click();
-    }
-});
-
-document.getElementById("expertSpecialty")
-    .addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        document.getElementById("expertSignupButton").click();
-    }
-});
-
 
 sendMessage.addEventListener('click', function(ev){
 	dataChannel.send(myMessage.value);
@@ -250,4 +218,84 @@ function appendChatMessage(msg, className) {
 	messageHolder.appendChild(div);
 }
 
+/////////////File Transfer///////////
+var sendFile = document.querySelector("input#sendFile");
+var fileProgress = document.querySelector("progress#fileProgress");
+var downloadLink = document.querySelector('a#receivedFileLink');
+
+io.on('files', function(data) {
+	receivedFileName = data.filename;
+	receivedFileSize = data.filesize;
+	console.log("File on it's way is " + receivedFileName + " (" + receivedFileSize + ")");
+	fileTransferring = true;
+});
+
+sendFile.addEventListener('change', function(ev){
+	var file = sendFile.files[0];
+	console.log("sending file " + file.name + " (" + file.size + ") ...");
+	io.emit('files',{"filename":file.name, "filesize":file.size});
+	appendChatMessage("sending " + file.name, 'message-in');
+	fileTransferring = true;
+						
+	fileProgress.max = file.size;
+	var chunkSize = 1024;
+	var sliceFile = function(offset) {
+		var reader = new window.FileReader();
+		reader.onload = (function() {
+			return function(e) {
+				dataChannel.send(e.target.result);
+				if (file.size > offset + e.target.result.byteLength) {
+					window.setTimeout(sliceFile, 0, offset + chunkSize);
+				}
+				fileProgress.value = offset + e.target.result.byteLength;
+			};
+		})(file);
+		var slice = file.slice(offset, offset + chunkSize);
+		reader.readAsArrayBuffer(slice);
+	};
+	sliceFile(0);
+	fileTransferring = false;
+}, false);
+
+/////////////Share My Screen///////////
+var shareMyScreen = document.querySelector("#shareMyScreen");
+shareMyScreen.addEventListener('click', function(ev){
+	shareScreenText = "Share Screen";
+	stopShareScreenText = "Stop Sharing";
+	console.log("Screen share button text: " + shareMyScreen.innerHTML)
+	if (shareMyScreen.innerHTML == shareScreenText) {
+		var msg = "Sharing my screen...";
+		appendChatMessage(msg, 'message-in');
+		
+		getScreenMedia(function (err, stream) {
+			if (err) {
+				console.log('failed: ' + err);
+			} else {
+				console.log('got a stream', stream);
+				smallVideoTag.src = URL.createObjectURL(stream);
+				rtcPeerConn.addStream(stream);
+			}
+		});
+		
+		shareMyScreen.innerHTML = stopShareScreenText;
+	}
+	else {
+		console.log("Resetting my stream to video...");
+		
+		//get a local stream again to replace the screen sharing
+		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	navigator.getUserMedia({
+		'audio': true,
+		'video': true
+	}, function (stream) {
+		console.log("going to display my stream...");
+		smallVideoArea.src = URL.createObjectURL(stream);
+		rtcPeerConn.addStream(stream);
+	}, logError);
+	
+	shareMyScreen.innerHTML = shareScreenText;
+	}
+	
+	ev.preventDefault();
+}, false);
 
