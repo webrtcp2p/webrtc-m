@@ -218,9 +218,12 @@ ul {
   padding: 10px;
 }
 .space-styled{
-  margin: 0 auto;
+  margin: 0 5px;
+  width: 195px;
+
 }
 .progress-styled{
+  width:306px;
 }
 .video-page-holder .actions-holder a{
   line-height: 50px;
